@@ -1,0 +1,10 @@
+statistics
+flask
+requests
+pandas
+time
+json
+plotly
+googlesearch
+pandas
+monkeylearn
