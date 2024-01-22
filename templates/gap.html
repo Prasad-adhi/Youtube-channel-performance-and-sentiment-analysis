@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script>
+        var gtype;
+        function selectgraph(e){
+            var id = e.target.getAttribute("id");
+            if(id == "views"){
+                gtype = "view_count";
+                $("#graphtype").text("Views")
+            }
+            else{
+                gtype = "like_count";
+                $("#graphtype").text("Likes")
+            }
+        }
+        function cb(){
+            n = document.getElementById('nvalue').value
+            //gtype = document.getElementById('graphtype').value
+            $.getJSON({
+                url: "/callback", data:{'nval': n, 'yval' : gtype}, success: function(result){
+                    Plotly.newPlot('chart',result,{})
+                }
+            })
+        }
+    </script>
+</head>
+<style>
+    body{
+        margin-bottom: 0%;
+        /*background-image: url("https://images.unsplash.com/photo-1557672172-298e090bd0f1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80");*/
+        /*background-image: url("https://images.unsplash.com/photo-1503455637927-730bce8583c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1650&q=80");*/
+        /*background-image: url("https://images.unsplash.com/photo-1607457561901-e6ec3a6d16cf?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80");*/
+        background-image: url("https://images.unsplash.com/photo-1611162616475-46b635cb6868?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80");
+        background-size: cover;
+        min-height:100%;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        backdrop-filter: blur(9px);
+    }
+    h1{
+        /*margin-bottom: 2rem;*/
+        font-family:Arial, Helvetica, sans-serif;
+        font-style: italic;
+        font-weight: bold;
+        margin-top: 4rem;
+        color: white;
+    }
+    legend{
+      font-weight: 600;
+    }
+    #form{
+        margin : 1rem 30rem 1rem 30rem;
+    }
+    #plot{
+        width: 100%;
+    }
+    fieldset{
+        background-color: white;
+        margin-top : 1rem;
+        margin-bottom : 1rem;
+        padding: 1rem 2rem 1rem 2rem;
+        border-radius: 8px;
+    }
+    label[for]{
+        font-weight: bold;
+    }
+    #redirect{
+      margin-top: 1rem;
+      margin-left: 80%;
+   }
+</style>
+<body>
+    <br>
+    <button id="redirect" class="btn btn-danger"><a href="/sentiment" style="color: white">sentiment analysis</a></button>
+    <div id="form">
+        <fieldset>
+            <div class="form-row">
+                <div class="col">
+                   <div class="form-group">
+                      <label for="nvalue">Enter details</label>
+                      <input type="text" id="nvalue" name="nvalue" class="form-control" placeholder="Enter value of n">
+                   </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col">
+                   <div class="form-group">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="graphtype" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Select graph
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="graphtype">
+                                <button class="dropdown-item" type="button" id="views" onclick="selectgraph(event)">Views vs n</button>
+                                <button class="dropdown-item" type="button" id="likes" onclick="selectgraph(event)">Likes vs n</button>
+                            </div>
+                        <!--<select name="graph" id="graphtype">
+                            <option value="view_count">Views vs n</option>
+                            <option value="like_count">Likes vs n</option>
+                        </select>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <button id="plot" onclick="cb()" class="btn btn-info">plot</button>
+        <br>
+    </div>
+    <div id="chart" class="chart"></div>
+    <div><br><br><br><br><br><br><br><br><br><br></div>
+    <!--<h1>Enter n value</h1>
+    <select name="graph" id="graphtype">
+        <option value="view_count">Views vs n</option>
+        <option value="like_count">Likes vs n</option>
+    </select>
+    <button onclick="cb()" class="btn btn-info">plot</button>
+    <div id="chart" class="chart"></div>-->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+
+<script>
+    d = {{ graphJSON | safe}};
+    Plotly.newPlot('chart', d, {});
+</script>
+</html>
