@@ -17,7 +17,7 @@ except ImportError:
 from API_call import get_channel_id,get_video_details,get_comments,get_statistics,get_all_details
 # Flask constructor takes the name of
 # current module (__name__) as argument.
-API_KEY = "AIzaSyCdkyzBVYNTga7GLHLxCeCpPUebK0wpRqg"
+API_KEY = "YOUR API KEY"
 
 
 # Flask constructor takes the name of

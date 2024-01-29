@@ -10,7 +10,7 @@ import json
 def sentiment_analysis(path):
     
     #My API Key
-    ml = MonkeyLearn('768c249c1f1cb7020853c015c615e16b3324988b')
+    ml = MonkeyLearn('YOUR API KEY')
 
     #import dataset
     dataset = pd.read_csv(path)
@@ -19,7 +19,7 @@ def sentiment_analysis(path):
     data = dataset['Comments'].tolist()   
     
     #Trained Model API Key
-    model_id = 'cl_pi3C7JiL'    
+    model_id = 'YOUR API KEY'    
     
     #Model Result
     result = ml.classifiers.classify(model_id, data)  

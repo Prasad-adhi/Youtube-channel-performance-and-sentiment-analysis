@@ -5,7 +5,7 @@ try:
     from googlesearch import search
 except ImportError:
     print("No module named 'google' found")
-API_KEY = "AIzaSyCdkyzBVYNTga7GLHLxCeCpPUebK0wpRqg"
+API_KEY = "YOUR API KEY"
 
 def get_channel_id(query):
     youtube_link = ""
